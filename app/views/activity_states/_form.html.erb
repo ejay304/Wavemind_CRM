@@ -1,0 +1,21 @@
+<%= form_for(@activity_state) do |f| %>
+  <% if @activity_state.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@activity_state.errors.count, "error") %> prohibited this activity_state from being saved:</h2>
+
+      <ul>
+      <% @activity_state.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

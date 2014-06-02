@@ -1,4 +1,12 @@
 WavemindCrm::Application.routes.draw do
+  resources :task_types
+
+  resources :documents
+
+  resources :document_types
+
+  resources :activity_states
+
   resources :activities
 
   resources :images

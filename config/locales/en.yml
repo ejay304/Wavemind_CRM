@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  project_types:
+    dev: "Développement"
+    com: "Communication"
+    net: "Network"

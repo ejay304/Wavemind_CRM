@@ -11,13 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521213504) do
+ActiveRecord::Schema.define(version: 20140528110155) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
     t.date     "beginDate"
     t.date     "endDate"
     t.integer  "ref"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "activity_states", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -30,6 +36,13 @@ ActiveRecord::Schema.define(version: 20140521213504) do
     t.string   "fax"
     t.string   "website"
     t.integer  "ref"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "document_types", force: true do |t|
+    t.text     "name"
+    t.string   "ref"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -60,7 +73,7 @@ ActiveRecord::Schema.define(version: 20140521213504) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "firstname"
-    t.string   "string"
+    t.string   "phone"
     t.string   "fax"
     t.string   "function"
     t.integer  "zip"
