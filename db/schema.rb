@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528110155) do
+ActiveRecord::Schema.define(version: 20140603210418) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20140528110155) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
-    t.string   "logo"
     t.string   "email"
     t.string   "phone"
     t.string   "fax"
@@ -38,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140528110155) do
     t.integer  "ref"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
   end
 
   create_table "document_types", force: true do |t|
@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 20140528110155) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "documents", force: true do |t|
+    t.string   "name"
+    t.string   "link"
+    t.date     "date"
+    t.integer  "document_type_id"
+    t.integer  "activity_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "documents", ["activity_id"], name: "index_documents_on_activity_id", using: :btree
+  add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id", using: :btree
 
   create_table "images", force: true do |t|
     t.text     "description"
@@ -69,6 +82,13 @@ ActiveRecord::Schema.define(version: 20140528110155) do
   end
 
   add_index "projects", ["responsible_id"], name: "index_projects_on_responsible_id", using: :btree
+
+  create_table "task_types", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

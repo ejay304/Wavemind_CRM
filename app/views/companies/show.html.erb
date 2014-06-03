@@ -1,14 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Nom:</strong>
   <%= @company.name %>
+  <%= image_tag("#{@company.avatar}") %>
 </p>
 
-<p>
-  <strong>Logo:</strong>
-  <%= @company.logo %>
-</p>
 
 <p>
   <strong>Email:</strong>

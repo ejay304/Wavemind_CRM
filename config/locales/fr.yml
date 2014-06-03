@@ -1,5 +1,5 @@
 fr:
-	project_types:
-		dev: Développement
-		com: Communication
-		net: Network
+  project_types:
+    dev: "Développement"
+    com: "Communication"
+    net: "Network"

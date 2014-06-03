@@ -24,6 +24,10 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
+    logger.debug "________________________________"
+    logger.debug company_params
+    logger.debug "________________________________"
+    
     @company = Company.new(company_params)
 
     respond_to do |format|
@@ -69,6 +73,7 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :logo, :email, :phone, :fax, :website, :ref)
+      params.require(:company).permit(:name, :avatar, :email, :phone, :fax, :website, :ref)
     end
+    
 end
