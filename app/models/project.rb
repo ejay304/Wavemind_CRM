@@ -1,5 +1,8 @@
 class Project < ActiveRecord::Base
-  belongs_to :responsible
+  belongs_to :responsible,  class_name: "Employee" 
+  has_many :images
+  has_many :activites
+
 
   def self.types
   	project_types = I18n.t(:project_types)
@@ -8,4 +11,5 @@ class Project < ActiveRecord::Base
       object << [I18n.t("project_types.#{type}"), type]		
     end
   end
+
 end

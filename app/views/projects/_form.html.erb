@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :nom %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
@@ -29,12 +29,12 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :ref %><br>
+    <%= f.label :référence %><br>
     <%= f.number_field :ref %>
   </div>
   <div class="field">
-    <%= f.label :responsible_id %><br>
-    <%= f.text_field :responsible_id %>
+    <%= f.label :responsable %><br>
+    <%= f.collection_select :responsible_id, @employees, :id, :full_name %>
   </div>
   <div class="actions">
     <%= f.submit %>

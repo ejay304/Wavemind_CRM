@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603210418) do
+ActiveRecord::Schema.define(version: 20140604142350) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -20,7 +20,10 @@ ActiveRecord::Schema.define(version: 20140603210418) do
     t.integer  "ref"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "project_id"
   end
+
+  add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
 
   create_table "activity_states", force: true do |t|
     t.string   "name"
@@ -89,6 +92,20 @@ ActiveRecord::Schema.define(version: 20140603210418) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "tasks", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "duration"
+    t.string   "state"
+    t.integer  "task_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "activity_id"
+  end
+
+  add_index "tasks", ["activity_id"], name: "index_tasks_on_activity_id", using: :btree
+  add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

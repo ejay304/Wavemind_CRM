@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
+  before_action :set_project 
 
   # GET /activities
   # GET /activities.json
@@ -10,10 +11,13 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
+    @task = Task.new
+    @task_types = TaskType.all
   end
 
   # GET /activities/new
   def new
+    @project = Project.find(params[:project_id])
     @activity = Activity.new
   end
 
@@ -28,7 +32,7 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.save
-        format.html { redirect_to @activity, notice: 'Activity was successfully created.' }
+        format.html { redirect_to project_activity_path(params[:project_id], @activity), notice: 'Activity was successfully created.' }
         format.json { render action: 'show', status: :created, location: @activity }
       else
         format.html { render action: 'new' }
@@ -56,7 +60,7 @@ class ActivitiesController < ApplicationController
   def destroy
     @activity.destroy
     respond_to do |format|
-      format.html { redirect_to activities_url }
+      format.html { redirect_to project_activities_url(params[:project_id]) }
       format.json { head :no_content }
     end
   end
@@ -66,9 +70,12 @@ class ActivitiesController < ApplicationController
     def set_activity
       @activity = Activity.find(params[:id])
     end
+    def set_project
+      @project = Project.find(params[:project_id])
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def activity_params
-      params.require(:activity).permit(:name, :beginDate, :endDate, :ref)
+      params.require(:activity).permit(:name, :beginDate, :endDate, :ref, :project_id)
     end
 end

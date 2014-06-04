@@ -20,5 +20,40 @@
   <%= @activity.ref %>
 </p>
 
-<%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>
+
+<p>
+  <h2>Liste des taches</h2>
+      <table id="taskList">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Temps</th>
+            <th>Employés</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if !@tasks.nil? %>
+          <% @tasks.each do |task| %>
+            <tr>
+              <td><%= task.name %></td>
+              <td><%= task.duration %></td>
+              <td><%= task.employee %></td>
+              <td><%= link_to 'Show', acttivity %></td>
+              <td><%= link_to 'Edit', edit_activity_path(acttivity) %></td>
+              <td><%= link_to 'Destroy', acttivity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+          <% end %>
+        </tbody>
+      </table>
+</p>
+<p>
+  <h2> Ajouter une tache </h2>
+  <%= render :partial => "task" %>
+</p>
+
+<%= link_to 'Edit', edit_project_activity_path(@project,@activity) %> |
+<%= link_to 'Back', project_activities_path(@project) %>

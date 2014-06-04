@@ -22,8 +22,45 @@
 
 <p>
   <strong>Responsible:</strong>
-  <%= @project.responsible %>
+  <%= @project.responsible.full_name %>
 </p>
+
+<p>
+  <h2>Liste d'activité</h2>
+    <% if @activities.nil? %>
+      Aucune activité pour ce projet
+    <% else %>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Début</th>
+            <th>Fun</th>
+            <th>Ref</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @activities.each do |acttivity| %>
+            <tr>
+              <td><%= acttivity.name %></td>
+              <td><%= acttivity.date %></td>
+              <td><%= acttivity.description %></td>
+              <td><%= acttivity.ref %></td>
+              <td><%= acttivity.responsible.full_name %></td>
+              <td><%= link_to 'Show', acttivity %></td>
+              <td><%= link_to 'Edit', edit_activity_path(acttivity) %></td>
+              <td><%= link_to 'Destroy', acttivity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+</p>
+
+<%= link_to "Ajouter une activité", new_project_activity_path(@project) %> <br>
 
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

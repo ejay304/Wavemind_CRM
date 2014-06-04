@@ -1,4 +1,5 @@
 WavemindCrm::Application.routes.draw do
+
   resources :task_types
 
   resources :documents
@@ -7,18 +8,24 @@ WavemindCrm::Application.routes.draw do
 
   resources :activity_states
 
-  resources :activities
 
   resources :images
 
-  resources :projects
+  resources :projects do
+    resources :activities do
+      resources :tasks
+    end
+  end
 
   resources :companies
 
   devise_for :users
   resources :users
+
+  devise_for :employees , type: 'Employee' 
   resources :employees, controller: 'users', type: 'Employee' 
-  resources :contact, controller: 'users', type: 'Contact' 
+  devise_for :contacts, type: 'Contact' 
+  resources :contacts, controller: 'users', type: 'Contact' 
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
