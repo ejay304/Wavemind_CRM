@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Mosaddek">
+    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Wavemind CRM</title>
+
+    <!-- Bootstrap core CSS -->
+    <%= stylesheet_link_tag    "bootstrap", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "bootstrap-reset", media: "all", "data-turbolinks-track" => true %>
+    <!--external css-->
+    <%= stylesheet_link_tag "font-awesome/css/font-awesome.min" %>
+    <%= stylesheet_link_tag    "owl.carousel", media: "all", "data-turbolinks-track" => true %>
+    <!-- Custom styles for this template -->
+    <%= stylesheet_link_tag    "style", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "style-responsive", media: "all", "data-turbolinks-track" => true %>
+
+    <%= csrf_meta_tags %>
+  
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+  <section id="container" >
+      <!--header start-->
+      <header class="header white-bg">
+        <%= link_to "Wave<span>Mind</span>".html_safe, root_path , :class => "logo"  %>
+             
+            <div class="top-nav ">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <li>
+                        <input type="text" class="form-control search" placeholder="Search">
+                    </li>
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <%= image_tag "/uploads/user/avatar/#{current_user.avatar}" %>
+                            <span class="username"><%= current_user.full_name %></span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li><%= link_to '<i class="fa fa-suitcase"></i>Profile'.html_safe, user_path(current_user)%></li>
+                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="fa fa-bell-o"></i> Notification</a></li>
+                            <li><%= link_to '<i class="fa fa-key"></i>Déconnexion'.html_safe, destroy_user_session_path, method: :delete  %></li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+      <!--header end-->
+
+        <!--main content start-->
+        <section id="main-content">
+          <section class="wrapper">
+
+            <% if notice %>
+              <p class="alert alert-success"><%= notice %></p>
+            <% end %>
+            <% if alert %>
+              <p class="alert alert-danger"><%= alert %></p>
+            <% end %>
+
+                <%= yield %>
+
+          </section>
+        </section>
+        <!--main content end-->
+
+    
+      <!--footer start-->
+      <footer class="site-footer">
+          <div class="text-center">
+              2014 &copy; Wavemind
+              <a href="#" class="go-top">
+                  <i class="fa fa-angle-up"></i>
+              </a>
+          </div>
+      </footer>
+      <!--footer end-->
+  </section>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery-1.8.3.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "bootstrap.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.scrollTo.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.nicescroll", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.scrollTo.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.sparkline.js", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "owl.carousel", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.customSelect.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "respond.min", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "jquery.dcjqaccordion.2.7  ", "data-turbolinks-track" => true %>
+  
+    <!--common script for all pages-->
+    <%= javascript_include_tag "common-scripts", "data-turbolinks-track" => true %>
+
+    <!--script for this page-->
+   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  
+  
+  <script>
+
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<section class="panel">
+  <header class="panel-heading">
+    Liste des projects
+  </header>
+  <table class="table table-hover table-striped">
+    <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Date</th>
+          <th>Responsable</th>
+          <th>Ref</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.name %></td>
+          <td><%= project.date %></td>
+          <td><%= project.responsible.full_name %></td>
+          <td><%= project.ref %></td>
+          <td><%= link_to 'Voir', project %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+</section>
