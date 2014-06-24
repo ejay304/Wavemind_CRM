@@ -1,6 +1,14 @@
-<h1>Editing company</h1>
+<div class="col-lg-6">
 
-<%= render 'form' %>
+	<section class="panel">
+	    <header class="panel-heading">
+	        Modifier <%= @company.name %>
+	    </header>
+		<div class="panel-body">
 
-<%= link_to 'Show', @company %> |
-<%= link_to 'Back', companies_path %>
+			<%= render 'form' %>
+		</div>
+	</section>
+	<%= link_to '<< Retour', companies_path %>
+</div>
+

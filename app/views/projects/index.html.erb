@@ -1,34 +1,7 @@
-<h1>Listing projects</h1>
+<section class="panel">
 
-<table>
-  <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Date</th>
-      <th>Ref</th>
-      <th>Responsible</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.name %></td>
-        <td><%= project.date %></td>
-        <td><%= project.description %></td>
-        <td><%= project.ref %></td>
-        <td><%= project.responsible.full_name %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Project', new_project_path %>
+<%= render "list" %>
+  <div class="panel-body">  
+    <%= link_to "Ajouter un projet", new_project_path, :class => "btn btn-primary pull-right" %> 
+  </div>
+</section>

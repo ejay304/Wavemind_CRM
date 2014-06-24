@@ -1,5 +1,6 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
+  before_action :set_contacts, only: [:new, :edit]
 
   # GET /companies
   # GET /companies.json
@@ -24,15 +25,12 @@ class CompaniesController < ApplicationController
   # POST /companies
   # POST /companies.json
   def create
-    logger.debug "________________________________"
-    logger.debug company_params
-    logger.debug "________________________________"
     
     @company = Company.new(company_params)
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.html { redirect_to @company, notice: 'La companie a été ajoutée' }
         format.json { render action: 'show', status: :created, location: @company }
       else
         format.html { render action: 'new' }
@@ -46,7 +44,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to @company, notice: 'Company was successfully updated.' }
+        format.html { redirect_to @company, notice: 'La companie à été mise à jour' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -71,9 +69,13 @@ class CompaniesController < ApplicationController
       @company = Company.find(params[:id])
     end
 
+    def set_contacts
+      @contacts = Contact.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :avatar, :email, :phone, :fax, :website, :ref)
+      params.require(:company).permit(:name, :avatar, :email, :phone, :fax, :website, :ref, :contact_id)
     end
     
 end

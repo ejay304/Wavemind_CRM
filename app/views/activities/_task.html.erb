@@ -1,31 +1,52 @@
-<%= form_for [@project, @activity,@task] do |f| %>
-  <% if @task.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+<%= form_for [@project, @activity,@task] , :remote => true , :class => "form-horizontal" do |f| %>
+<% if @task.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
-      <ul>
-      <% @task.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-
-    <%= f.label :duration %>
-    <%= f.number_field :duration %>
-
-    <%= f.label :state %>
-    <%= f.text_field :state %>
-
-    <%= f.label :task_type_id %>
-    <%= f.collection_select :task_type_id, @task_types, :id, :name %>
-
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-    <%= f.submit %>
+  <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="form-group">
+  <div class="col-lg-2">
+    <%= f.text_field :name , :placeholder => "Nom", :class => "form-control"  %>
   </div>
+
+  <div class="col-lg-2">
+    <%= f.number_field :duration , :placeholder => "Durée",:class => "form-control"  %>
+  </div>
+
+  <div class="col-lg-2">
+    <%= select_tag :state, options_for_select(Task.states), :class => "form-control m-bot15" %>
+  </div>
+
+  <div class="col-lg-2">
+    <%= f.collection_select :task_type_id, @task_types, :id, :name, {} ,:class => "form-control m-bot15" %>
+  </div>
+
+  <div class="col-lg-4">
+    <%= f.text_area :description %>
+  </div>
+</div>
+<br>
+<div class="form-group">
+  <div class="col-lg-2">
+    <% for employee in Employee.find(:all) %>
+      <div class="checkbox">
+        <label>
+        <%= check_box_tag "task[employee_ids][]", employee.id, @task.employees.include?(employee), :class => "checkbox-inline" %>
+        <%= employee.full_name %>
+      </label>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="actions text-center">
+  <%= f.submit "Ajouter" , :class => "btn btn-success" %>
+</div>
+</div>
 <% end %>

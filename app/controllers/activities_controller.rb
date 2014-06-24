@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_project 
+  before_action :authenticate_employee!, except: [:show]
 
   # GET /activities
   # GET /activities.json
@@ -11,8 +12,10 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
+    @tasks = Task.where activity_id: params[:id]
     @task = Task.new
     @task_types = TaskType.all
+    @task_states = Task.states
   end
 
   # GET /activities/new
@@ -29,10 +32,11 @@ class ActivitiesController < ApplicationController
   # POST /activities.json
   def create
     @activity = Activity.new(activity_params)
+    @activity.project_id = params["project_id"]
 
     respond_to do |format|
       if @activity.save
-        format.html { redirect_to project_activity_path(params[:project_id], @activity), notice: 'Activity was successfully created.' }
+        format.html { redirect_to project_activity_path(params[:project_id], @activity), notice: "L'activité a été ajoutée" }
         format.json { render action: 'show', status: :created, location: @activity }
       else
         format.html { render action: 'new' }
@@ -46,7 +50,7 @@ class ActivitiesController < ApplicationController
   def update
     respond_to do |format|
       if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
+        format.html { redirect_to @activity, notice: "L'activité a été mise à jour" }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -1,66 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="col-lg-6">
+  <section class="panel">
+    <header class="panel-heading">
+      <%= @project.name %>
+       <% if current_user.role? != :contact %>
+          <%= link_to '<i class="fa fa-pencil"> Modifier</i>'.html_safe, edit_project_path(@project) %>
+        <% end %>
+     
+    </header>
+    <div class="panel-body bio-graph-info">
+      <div class="bio-row">
+        <p><span>Nom</span> <%= @project.name %> </p>
+      </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+      <div class="bio-row">
+        <p><span>Date</span> <%= @project.date %> </p>
+      </div>
 
-<p>
-  <strong>Date:</strong>
-  <%= @project.date %>
-</p>
+      <div class="bio-row">
+        <p><span>Responsable</span> <%= @project.responsible.full_name %> </p>
+      </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+      <div class="bio-row">
+        <p><span>Contact</span> <%= @project.contact.full_name %> </p>
+      </div>
 
-<p>
-  <strong>Ref:</strong>
-  <%= @project.ref %>
-</p>
+      <div class="bio-row">
+        <p><span>Ref</span> <%= @project.ref %> </p>
+      </div>
 
-<p>
-  <strong>Responsible:</strong>
-  <%= @project.responsible.full_name %>
-</p>
+      <div class="bio-row">
+        <p><span></span> </p>
+      </div>
 
-<p>
-  <h2>Liste d'activité</h2>
-    <% if @activities.nil? %>
+      <div class="bio-row">
+        <p><span>Description</span></p> <p> <%= @project.description %> </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="col-lg-6">
+  <section class="panel">
+    <header class="panel-heading">
+      Liste des activités <% if current_user.role? != :contact %> <%= link_to '<i class="fa fa-plus"> Ajouter une activité</i>'.html_safe, new_project_activity_path(@project) %> <% end %>
+    </header>
+    <% if @activities.count == 0 %>
+    <div class="panel-body">  
       Aucune activité pour ce projet
+    </div>
     <% else %>
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Début</th>
-            <th>Fun</th>
-            <th>Ref</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @activities.each do |acttivity| %>
-            <tr>
-              <td><%= acttivity.name %></td>
-              <td><%= acttivity.date %></td>
-              <td><%= acttivity.description %></td>
-              <td><%= acttivity.ref %></td>
-              <td><%= acttivity.responsible.full_name %></td>
-              <td><%= link_to 'Show', acttivity %></td>
-              <td><%= link_to 'Edit', edit_activity_path(acttivity) %></td>
-              <td><%= link_to 'Destroy', acttivity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% end %>
-</p>
+    <table class="table table-hover table-striped">
+     <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Début</th>
+        <th>Ref</th>
+        <% if current_user.role? != :contact %>
+          <th></th>
+        <% end %>
 
-<%= link_to "Ajouter une activité", new_project_activity_path(@project) %> <br>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @activities.each do |activity| %>
+      <tr>
+        <td><%= activity.name %></td>
+        <td><%= activity.beginDate %></td>
+        <td><%= activity.ref %></td>
+        <td><!-- #activity.responsible.full_name -->  </td>
+        <td><%= link_to 'Voir', project_activity_path(@project.id,activity) %></td>
+        <% if current_user.role? != :contact %>
+          <td><%= link_to 'Modifier', edit_project_activity_path(@project.id ,activity) %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% end %>
+</section>
+</div>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>

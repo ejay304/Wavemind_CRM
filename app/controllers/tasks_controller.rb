@@ -60,7 +60,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to project_activity_path(params[:project_id],params[:activity_id]) }
       format.json { head :no_content }
     end
   end
@@ -79,6 +79,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :description, :duration, :state, :task_type_id, :activity_id)
+      params.require(:task).permit(:name, :description, :duration, :state, :task_type_id, :activity_id, employee_ids: [])
     end
 end

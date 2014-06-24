@@ -1,0 +1,16 @@
+<aside class="profile-nav col-lg-3">
+    <section class="panel">
+        <div class="user-heading round">
+              <%= image_tag "/uploads/user/avatar/1_big.png" %>
+            <h1><%= @employee.full_name %></h1>
+            <p><%= @employee.email %></p>
+        </div>
+
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active"><%= link_to  '<i class="fa fa-user"></i> Profil'.html_safe, user_path(@employee) %></li>
+            <li><%= link_to  '<i class="fa fa-edit"></i> Modifier profil'.html_safe,  edit_employee_registration_path(@employee) %></li>
+            <li><%= link_to  '<i class="fa fa-edit"></i> Modifier mot de passe (à faire)'.html_safe,  edit_employee_registration_path(@user) %></li>
+        </ul>
+
+    </section>
+</aside>

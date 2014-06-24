@@ -1,1 +1,11 @@
-_task.html.erb
+<tr>
+	<td><%= task.name %></td>
+	<td><%= task.duration %></td>
+	<td>
+		<% for employee in task.employees %>
+		<%= employee.full_name %><br>
+		<% end %>
+	</td>
+	<td><%= link_to 'Modifier', edit_project_activity_task_path(@project,@activity,task) %></td>
+	<td><%= link_to 'Supprimer', project_activity_task_path(@project,@activity,task) , method: :delete, data: { confirm: 'Etes vous sûr ?' } %></td>
+</tr>

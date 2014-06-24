@@ -1,45 +1,74 @@
-<%= form_for(@company) do |f| %>
-  <% if @company.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
-      <ul>
-      <% @company.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_for @company, :html => { :method => :put, :class => "form-horizontal" } do |f| %>
+<% if @company.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h2>
 
-  <div class="field">
-    <%= f.label :nom %><br>
-    <%= f.text_field :name %>
+  <ul>
+    <% @company.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :name, "Nom" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email, "E-mail" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :email , :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :téléphone %><br>
-    <%= f.text_field :phone %>
+</div>
+
+<div class="form-group">
+  <%= f.label :phone, "Téléphone" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :phone , :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :fax %><br>
-    <%= f.text_field :fax %>
+</div>
+
+<div class="form-group">
+  <%= f.label :fax, "Fax" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :fax , :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :site_internet %><br>
-    <%= f.text_field :website %>
+</div>
+
+<div class="form-group">
+  <%= f.label :website, "Site web" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :website , :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :logo %><br>
+</div>
+
+<div class="form-group">
+  <%= f.label :contact_id, "Contact" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.collection_select :contact_id, @contacts , :id , :full_name, {} ,:class => "form-control m-bot15" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :avatar, "Logo" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
     <%= f.file_field :avatar %>
   </div>
-  <div class="field">
-    <%= f.label :référence %><br>
+</div>
+
+<div class="form-group">
+  <%= f.label :ref, "Référence" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
     <%= f.number_field :ref %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+</div>
+
+<div class="actions text-center">
+  <%= f.submit "Envoyer" , :class => "btn btn-success" %>
+</div>
 <% end %>

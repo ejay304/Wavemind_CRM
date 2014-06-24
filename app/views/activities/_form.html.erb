@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label :name, "Nom" %><br>
     <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :beginDate %><br>
-    <%= f.date_select :beginDate %>
+    <%= f.label :beginDate, "Date de début" %><br>
+     <%= f.date_select :beginDate, {:use_month_names => [t(:jan), t(:feb), t(:mar), t(:apr), t(:may), t(:jun), t(:jul), t(:aug), t(:sep), t(:oct), t(:nov), t(:dec)]} %>
   </div>
 
   <div class="field">
-    <%= f.label :ref %><br>
+    <%= f.label :ref , "Ref" %><br>
     <%= f.number_field :ref %>
   </div>
-  __
+  
   <div class="actions">
-    <%= f.submit %>
-  </div>
+   <%= f.submit "Envoyer" , :class => "btn btn-success" %>
+</div>
 <% end %>

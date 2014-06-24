@@ -4,11 +4,14 @@ source 'https://rubygems.org'
 #Gem utilisé pour l'upload des images pour les entités
 gem 'carrierwave'
 
+# Permet de gérer les droits d'accèes pour l'utilisateur
+gem "cancan"
+
 # Use devise for authentification
 gem 'devise'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.3'
-#gem 'protected_attributes'
 
 gem 'mysql2'
 

@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :set_employees, only: [:new, :edit]
+  before_action :set_contacts, only: [:new, :edit]
+  before_action :authenticate_employee!, except: [:myProjects, :show] 
+
+  
 
   # GET /projects
   # GET /projects.json
@@ -11,7 +15,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @activites = Activity.find_by_project_id(params[:id])
+    @activities = Activity.where(project_id: params[:id])
   end
 
   # GET /projects/new
@@ -30,7 +34,7 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to @project, notice: 'Le projet a été ajouté' }
         format.json { render action: 'show', status: :created, location: @project }
       else
         format.html { render action: 'new' }
@@ -44,7 +48,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Le projet a été mis à jour' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -63,7 +67,11 @@ class ProjectsController < ApplicationController
     end
   end
 
-  private
+  def myProjects
+    @projects = Project.where(:contact_id => current_user.id)
+  end
+
+  private  
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
@@ -73,8 +81,12 @@ class ProjectsController < ApplicationController
       @employees = Employee.all
     end
 
+    def set_contacts
+      @contacts = Contact.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :date, :description, :ref, :responsible_id)
+      params.require(:project).permit(:name, :date, :description, :ref, :responsible_id, :contact_id)
     end
 end

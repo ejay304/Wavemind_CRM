@@ -8,7 +8,6 @@ WavemindCrm::Application.routes.draw do
 
   resources :activity_states
 
-
   resources :images
 
   resources :projects do
@@ -17,21 +16,31 @@ WavemindCrm::Application.routes.draw do
     end
   end
 
-  resources :companies
+  resources :companies do 
+    resources :contacts, controller: 'users', type: 'Contact' do
 
-  devise_for :users
-  resources :users
+      member do
+        get 'myProjects/', to: 'projects#myProjects'
+      end
+    end  
+  end
 
-  devise_for :employees , type: 'Employee' 
-  resources :employees, controller: 'users', type: 'Employee' 
+
+
+  devise_for :users do 
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
+  
+  devise_for :employees , type: 'Employee', :controllers => { :registrations => "employees/registrations" }
   devise_for :contacts, type: 'Contact' 
-  resources :contacts, controller: 'users', type: 'Contact' 
+  resources :employees, controller: 'users', type: 'Employee' 
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'users#index'
+   root 'projects#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

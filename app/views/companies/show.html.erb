@@ -1,36 +1,68 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nom:</strong>
-  <%= image_tag("#{@company.avatar}") %><br>
-  <%= @company.name %>
-</p>
+<div class="col-lg-8">
+  <section class="panel">
+    <header class="panel-heading">
+      <%= @company.name %>
+      <%= link_to '<i class="fa fa-pencil"> Modifier</i>'.html_safe, edit_company_path(@company) %>
+    </header>
+    <div class="panel-body bio-graph-info">
+      <div style="text-align:center; margin-bottom: 35px;">
+        <%= image_tag "#{@company.avatar}" , :height => '175' %>
+      </div>
 
+      <div class="bio-row">
+        <p><span>Nom</span> <%= @company.name %> </p>
+      </div>
 
-<p>
-  <strong>Email:</strong>
-  <%= @company.email %>
-</p>
+      <div class="bio-row">
+        <p><span>E-mail</span> <%= @company.email %> </p>
+      </div>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @company.phone %>
-</p>
+      <div class="bio-row">
+        <p><span>Télépphone</span> <%= @company.phone %> </p>
+      </div>
 
-<p>
-  <strong>Fax:</strong>
-  <%= @company.fax %>
-</p>
+      <div class="bio-row">
+        <p><span>Fax</span> <%= @company.fax %> </p>
+      </div>
 
-<p>
-  <strong>Website:</strong>
-  <%= @company.website %>
-</p>
+      <div class="bio-row">
+        <p><span>Site web</span> <%= @company.website %> </p>
+      </div>
 
-<p>
-  <strong>Ref:</strong>
-  <%= @company.ref %>
-</p>
+      <div class="bio-row">
+        <p><span>Ref</span> <%= @company.ref %> </p>
+      </div>
+    </section>
+  </div>
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Back', companies_path %>
+  <div class="col-lg-4">
+    <section class="panel">
+      <header class="panel-heading">
+        Contacts
+        <%= link_to '<i class="fa fa-plus"> Ajouter</i>'.html_safe, new_company_contact_path(@company) %>
+      </header>
+      <table class="table table-hover table-striped">
+
+       <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Poste</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for contact in @company.contacts %>
+          <tr>
+            <td><%=link_to contact.full_name, company_contact_path(@company,contact) %></td>
+            <td><%= contact.function %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+  <div class="panel-body">  
+    <%= link_to "Ajouter un contact", new_company_contact_path(@company), :class => "btn btn-primary pull-right" %> 
+  </div>
+  </section>
+</div>

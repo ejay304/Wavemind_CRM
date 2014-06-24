@@ -1,54 +1,104 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for [@company, @user], :html => { :method => :post, :class => "form-horizontal" } do |f| %>
+<% if @user.errors.any? %>
+<div id="error_explanation">
+  <%= devise_error_messages! %>
+  <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-<div class="field">
-    <%= f.label :nom %><br>
-    <%= f.text_field :name, :autofocus => true %>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="form-group">
+  <%= f.label :firstname, "Prénom" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :firstname, :autofocus => true, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :prenom %><br>
-    <%= f.text_field :firstname %>
+</div>
+
+<div class="form-group">
+  <%= f.label :name, "Nom" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :name, :class => "form-control" %>
   </div>
-  
-  <div class="field">
-    <%= f.label :telephone %><br>
-    <%= f.text_field :phone %>
+</div>
+
+<div class="form-group">
+  <%= f.label :phone, "Téléphone" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :phone, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :fax %><br>
-    <%= f.text_field :fax %>
+</div>
+
+<div class="form-group">
+  <%= f.label :fax, "Fax" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :fax, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :poste %><br>
-    <%= f.text_field :function %>
+</div>
+
+<div class="form-group">
+  <%= f.label :function, "Poste" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :function, :class => "form-control" %>
   </div>
-   <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
+</div>
+
+<div class="form-group">
+  <%= f.label :address, "Adresse" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :address, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :npa %><br>
-    <%= f.text_field :zip %>
+</div>
+
+<div class="form-group">
+  <%= f.label :zip, "NPA" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :zip, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :ville %><br>
-    <%= f.text_field :city %>
+</div>
+
+<div class="form-group">
+  <%= f.label :city, "Ville" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :city, :class => "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :pays %><br>
-    <%= f.text_field :country %>
+</div>
+
+<div class="form-group">
+  <%= f.label :country, "Pays" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.text_field :country, :class => "form-control" %>
   </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email, "E-mail" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.email_field :email, :class => "form-control" %>
   </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :password, "Mot de passe" , :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.password_field :password , :class => "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :password_confirmation, "Confirmation", :class => "col-lg-2 col-sm-2 control-label"  %>
+  <div class="col-lg-6">
+    <%= f.password_field :password_confirmation , :class => "form-control" %>
+  </div>
+</div>
+
+
+
+<div class="actions text-center">
+  <%= f.submit "Envoyer" , :class => "btn btn-success" %>
+</div>
 <% end %>

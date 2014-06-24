@@ -1,4 +1,5 @@
 class Contact < User
-	#attr_accessible :name,:firstname,:phone,:fax,:function,:address,:zip, :city, :country
+	has_many :projects
+	belongs_to :contact
 
 end

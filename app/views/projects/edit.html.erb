@@ -1,6 +1,15 @@
-<h1>Editing project</h1>
+<div class="col-lg-6">
 
-<%= render 'form' %>
+	<section class="panel">
+	    <header class="panel-heading">
+	        Modifier <%= @project.name %>
+	    </header>
+		<div class="panel-body">
 
-<%= link_to 'Show', @project %> |
-<%= link_to 'Back', projects_path %>
+			<%= render 'form' %>
+			
+		</div>
+	</section>
+	<%= link_to '<< Retour', projects_path %>
+</div>
+

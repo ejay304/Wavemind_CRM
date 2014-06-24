@@ -25,3 +25,8 @@ en:
     dev: "Développement"
     com: "Communication"
     net: "Network"
+  task_state:
+    planned: "Prévu"
+    ongoing: "En cours"
+    done: "Terminé"
+    waiting: "En attente"

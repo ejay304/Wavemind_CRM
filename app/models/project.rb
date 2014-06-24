@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :responsible,  class_name: "Employee" 
   has_many :images
   has_many :activites
+  belongs_to :contact
 
 
   def self.types

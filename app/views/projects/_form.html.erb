@@ -1,3 +1,8 @@
+<%= stylesheet_link_tag    "bootstrap-datepicker/datepicker", media: "all", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "jquery", "data-turbolinks-track" => true %>
+
+<% # content for header pour ajouter des CSS et javascript_include_tag %>
+
 <%= form_for(@project) do |f| %>
   <% if @project.errors.any? %>
     <div id="error_explanation">
@@ -11,13 +16,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nom %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+  <%= f.label :name, "Nom" , :class => "col-lg-2 col-sm-2 control-label"  %>
+    <div class="col-lg-6">
+      <%= f.text_field :name, :class => "form-control" %>
+    </div>
   </div>
+<br>
+<br>
+  <div class="form-group">
+  <%= f.label :date, "Date" , :class => "col-lg-2 col-sm-2 control-label"  %>
+    <div class="col-lg-6">
+      <input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="">
+      <%= f.date_select :date, :class => "form-control" %>
+    </div>
+  </div>
+  
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.date_select :date %>
+    <%= f.date_select :date, {:use_month_names => [t(:jan), t(:feb), t(:mar), t(:apr), t(:may), t(:jun), t(:jul), t(:aug), t(:sep), t(:oct), t(:nov), t(:dec)]} %>
   </div>
   <div class="field">
     <%= f.label :type %><br>
@@ -29,12 +46,16 @@
     <%= f.text_area :description %>
   </div>
   <div class="field">
-    <%= f.label :référence %><br>
+    <%= f.label :ref, "Référence" %><br>
     <%= f.number_field :ref %>
   </div>
   <div class="field">
-    <%= f.label :responsable %><br>
+    <%= f.label :responsible_id , "Responsable" %><br>
     <%= f.collection_select :responsible_id, @employees, :id, :full_name %>
+  </div>
+  <div class="field">
+    <%= f.label :contact_id , "Contact" %><br>
+    <%= f.collection_select :contact_id, @contacts, :id, :full_name %>
   </div>
   <div class="actions">
     <%= f.submit %>

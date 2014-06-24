@@ -28,7 +28,7 @@ class TaskTypesController < ApplicationController
 
     respond_to do |format|
       if @task_type.save
-        format.html { redirect_to @task_type, notice: 'Task type was successfully created.' }
+        format.html { redirect_to @task_type, notice: 'Le type de tâche à été ajouté' }
         format.json { render action: 'show', status: :created, location: @task_type }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class TaskTypesController < ApplicationController
   def update
     respond_to do |format|
       if @task_type.update(task_type_params)
-        format.html { redirect_to @task_type, notice: 'Task type was successfully updated.' }
+        format.html { redirect_to @task_type, notice: 'Le type de tâche à été mis à jour' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

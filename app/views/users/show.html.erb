@@ -1,49 +1,40 @@
-<p id="notice"><%= notice %></p>
+<!-- page start-->
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Firstname:</strong>
-  <%= @user.firstname %>
-</p>
-
-<p>
-  <strong>Téléphone:</strong>
-  <%= @user.phone %>
-</p>
-
-<p>
-  <strong>Fax:</strong>
-  <%= @user.fax %>
-</p>
-
-<p>
-  <strong>Function:</strong>
-  <%= @user.function %>
-</p>
-
-<p>
-  <strong>Zip:</strong>
-  <%= @user.zip %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @user.city %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @user.country %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @user.address %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div class="row">
+    <%= render 'user_info' %> 
+    <aside class="profile-info col-lg-9">
+      <section class="panel">
+        <header class="panel-heading">
+          Biographie
+        </header>
+          <div class="panel-body bio-graph-info">
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Prénom</span> <%= @employee.firstname %> </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Nom</span> <%= @employee.name %> </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Pays </span> <%= @employee.country %></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Fonction </span> <%= @employee.function %> </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Ville</span> <%= @employee.zip %>  <%= @employee.city%></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>E-mail </span> <%= @employee.email %></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Adresse </span> <%= @employee.address %> </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Mobile </span> <%= @employee.phone %> </p>
+                  </div>
+              </div>
+          </div>
+      </section>
+    </aside>
+  </div>

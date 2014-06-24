@@ -1,74 +1,160 @@
-<h2>Mise à jour <%= resource_name.to_s.humanize %></h2>
+<p id="notice"><%= notice %></p>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
+  <%= render 'users/user_info' %> 
+  <aside class="profile-info col-lg-9">
+    <section class="panel panel-primary">
 
+      <div class="panel-heading">Information du profil</div>
+      <div class="panel-body bio-graph-info">
 
-  <div class="field">
-    <%= f.label :nom %><br>
-    <%= f.text_field :name, :autofocus => true %>
-  </div>
-  <div class="field">
-    <%= f.label :prénom %><br>
-    <%= f.text_field :firstname %>
-  </div>
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f|  %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email%>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :mot_de_passe %> <i>(Laisser blanc si vous ne voulez pas le changer)</i><br />
-    <%= f.password_field :password, :autocomplete => "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :confirmation_du_mot_de_passe %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <div class="field">
-    <%= f.label :telephone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :fax %><br>
-    <%= f.text_field :fax %>
-  </div>
-  <div class="field">
-    <%= f.label :poste %><br>
-    <%= f.text_field :function %>
-  </div>
-   <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :npa %><br>
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-    <%= f.label :ville %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :pays %><br>
-    <%= f.text_field :country %>
-  </div>
-
-   <div>
-    <%= f.label :mot_de_passe_actuel %> <i>(votre mot de passe actuel est obligatoire si vous souhaiter modifier votre profil)</i><br />
-    <%= f.password_field :current_password %>
-  </div>
-
-  <div><%= f.submit "Mettre à jour  " %></div>
-<% end %>
+        <%= devise_error_messages! %>
 
 
+        <div class="form-group">
+          <%= f.label :firstname, "Prénom" , :class => "col-lg-2 control-label"  %>
+          <div class="col-lg-6">
+            <%= f.text_field :firstname, :class => "form-control" %>
+          </div>
+        </div>
 
-<%= link_to "Retour", :back %>
+        <div class="form-group">
+          <%= f.label :name, "Nom", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :name, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "E-mail", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.email_field :email, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :phone, "Téléphone", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :phone,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :fax, "Fax", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :fax,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :function, "Fonction", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :function,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :address, "Adresse", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :address,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :zip, "NPA", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :zip,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :city, "Ville", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :city,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :country, "Pays", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.text_field :country,  :class => "form-control" %>
+          </div>
+        </div>
+
+        <br>
+        <br>
+        <div class="form-group">
+          <%= f.label :current_password, "Mot de passe actuel", :class => "col-lg-2 control-label" %>
+          <div class="col-lg-6">
+            <%= f.password_field :current_password,  :class => "form-control" %>
+            <p class="help-block">Votre mot de passe actuel est obligatoire si vous souhaiter modifier votre profil</p>
+          </div>
+        </div>
+
+        <div>
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <%= f.submit "Enregistrer",:class => "btn btn-success" %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </section>
+
+
+
+
+
+      <section>
+        <div class="panel panel-primary">
+          <div class="panel-heading"> Changer votre mot de passe</div>
+          <div class="panel-body">
+           <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => "form-horizontal" }) do |f|  %>
+
+           <div class="form-group">
+            <%= f.label :password, "Mot de passe", :class => "col-lg-2 control-label" %>
+            <div class="col-lg-6">
+              <%= f.password_field :password, :autocomplete => "off",  :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation, "Confirmation du mot de passe", :class => "col-lg-2 control-label" %>
+            <div class="col-lg-6">
+              <%= f.password_field :password_confirmation, :autocomplete => "off",  :class => "form-control" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label  class="col-lg-2 control-label">Changer votre avatar </label>
+            <div class="col-lg-6">
+              <input type="file" class="file-pos" id="exampleInputFile">
+            </div>
+          </div>
+          
+          <br>
+          <br>
+          <div class="form-group">
+            <%= f.label :current_password, "Mot de passe actuel", :class => "col-lg-2 control-label" %>
+            <div class="col-lg-6">
+              <%= f.password_field :current_password,  :class => "form-control" %>
+              <p class="help-block">Votre mot de passe actuel est obligatoire si vous souhaiter modifier votre profil</p>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button type="submit" class="btn btn-info">Save</button>
+            </div>
+          </div>
+
+          <% end %>
+
+        </div>
+      </section>
+    </aside>
+
+  </div>
