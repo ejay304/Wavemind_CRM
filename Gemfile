@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
 
+gem 'dropbox-api'
+gem "paperclip"
+
 
 #Gem utilisé pour l'upload des images pour les entités
 gem 'carrierwave'

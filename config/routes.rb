@@ -24,8 +24,6 @@ WavemindCrm::Application.routes.draw do
     end  
   end
 
-
-
   devise_for :users do 
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -34,6 +32,10 @@ WavemindCrm::Application.routes.draw do
   devise_for :contacts, type: 'Contact' 
   resources :employees, controller: 'users', type: 'Employee' 
   resources :users
+
+
+  get '/dropbox/authorize'   => 'dropbox#authorize'  , :as => :dropbox_auth
+  get '/dropbox/callback' => 'dropbox#callback'  , :as =>  :dropbox_callback
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
