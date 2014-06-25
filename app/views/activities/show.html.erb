@@ -1,4 +1,4 @@
-<div class="col-lg-12">
+<div class="col-lg-6">
   <section class="panel">
     <header class="panel-heading">
       <%= @project.name %>
@@ -24,6 +24,94 @@
       </div>
     </div>
   </section>
+</div>
+
+<div class="col-lg-6  ">
+  <section class="panel">
+    <header class="panel-heading">
+      Ajouter un document (Faire du DragNDrop)
+    </header>
+    <div class="panel-body">
+
+      <%= form_for [@project, @activity, @document] ,:html => { :class => "form-horizontal" } do |f| %>
+       <% if @document.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+            <ul>
+            <% @document.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="form-group">
+          <%= f.label :name, "Nom" , :class => "col-lg-2 col-sm-2 control-label"  %>
+          <div class="col-lg-6">
+            <%= f.text_field :name, :class => "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :document_type_id, "Type" , :class => "col-lg-2 col-sm-2 control-label"  %>
+          <div class="col-lg-6">
+            <%= f.collection_select :document_type_id, @document_types , :id , :name, {} ,:class => "form-control m-bot15" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :link, "Fichier" , :class => "col-lg-2 col-sm-2 control-label"  %>
+          <div class="col-lg-6">
+            <%= f.file_field :link %>
+          </div>
+        </div>
+ 
+        <div class="actions text-center">
+          <%= f.submit "Ajouter" , :class => "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
+
+<div class="col-lg-12">
+<section class="panel">
+  <header class="panel-heading">
+    Liste des documents
+  </header>
+  <table id="taskList" class="table table-hover table-striped">
+    <thead>
+        <tr>
+        <th></th>
+        <th>Nom</th>
+        <th>Date d'ajout</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each do |document| %>
+        <tr>
+        <td><%= image_tag document.logo %></td>
+        <td><%= document.name %></td>
+        <td>
+          <%= 
+            if document.created_at + 1.days > Time.now
+              time_ago_in_words(document.created_at)
+            else
+              l(document.created_at, format: :long)
+            end 
+            %>
+        </td>
+        <td><%= document.document_type.name %></td>
+        <td><%= link_to 'Modifier', edit_project_activity_document_path(@project,@activity,document) %></td>
+        <td><%= link_to 'Supprimer', project_activity_document_path(@project,@activity,document) , method: :delete, data: { confirm: 'Etes vous sûr ? ' } %></td>
+      </tr>
+        <% end %>
+      </tbody>
+  </table>
+</section>
 </div>
 
 <div class="col-lg-12">
@@ -72,7 +160,7 @@
     Ajouter une tache
   </header>
   <div class="panel-body">
-    <%= render :partial => "task" %>
+    <%= render :partial => "activities/task" %>
   </div>
   </section>
 </div>

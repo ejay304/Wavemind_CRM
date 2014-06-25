@@ -16,6 +16,9 @@ class ActivitiesController < ApplicationController
     @task = Task.new
     @task_types = TaskType.all
     @task_states = Task.states
+    @document = Document.new
+    @documents = Document.where activity_id: params[:id]
+    @document_types = DocumentType.all
   end
 
   # GET /activities/new
