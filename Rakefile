@@ -3,4 +3,8 @@
 
 require File.expand_path('../config/application', __FILE__)
 
+require "dropbox-api"
+require "dropbox-api/tasks"
+Dropbox::API::Tasks.install
+
 WavemindCrm::Application.load_tasks

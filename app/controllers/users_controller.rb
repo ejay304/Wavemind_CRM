@@ -87,7 +87,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(type.underscore.to_sym).permit(:name, :firstname, :phone, :fax, :function, :zip, :city, :country, :address, :type,:email, :password, :password_confirmation)
+      params.require(type.underscore.to_sym).permit(:name, :firstname, :phone, :fax, :function, :zip, :city, :country, :address, :type,:email, :password, :password_confirmation, :db_token,:db_secret)
     end
 
 end

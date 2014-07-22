@@ -21,21 +21,29 @@ class DocumentsController < ApplicationController
   def edit
   end
 
+  def validate
+
+  end
+
   # POST /documents
   # POST /documents.json
   def create
     @document = Document.new(document_params)
+    @document.activity_id = params['activity_id']
 
-    respond_to do |format|
+    respond_to do |format|  
       if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        format.html { redirect_to project_activity_path(params['project_id'],params['activity_id']), notice: 'Document was successfully created.' }
         format.json { render action: 'show', status: :created, location: @document }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @document.errors, status: :unprocessable_entity }
+          format.html {
+            set_activity_view
+            render "activities/show"
+          }
+          format.json { render json: @document.errors, status: :unprocessable_entity }
+        end
       end
     end
-  end
 
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
@@ -67,8 +75,19 @@ class DocumentsController < ApplicationController
       @document = Document.find(params[:id])
     end
 
+    def set_activity_view
+      @activity = Activity.find(params['activity_id'])
+      @project = Project.find(params['project_id'])
+      @tasks = Task.where activity_id: params['activity_id']
+      @task = Task.new
+      @task_types = TaskType.all
+      @task_states = Task.states
+      @document_types = DocumentType.all
+      @documents = Document.where activity_id: params[:id]
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:name, :link, :date, :document_type_id, :activity_id)
+      params.require(:document).permit(:name, :link, :date, :document_type_id, :activity_id, :link_file_name)
     end
-end
+  end

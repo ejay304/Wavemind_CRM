@@ -1,7 +1,9 @@
-class ActivitiesController < ApplicationController
+  class ActivitiesController < ApplicationController
   before_action :set_activity, only: [:show, :edit, :update, :destroy]
   before_action :set_project 
   before_action :authenticate_employee!, except: [:show]
+
+  helper DropboxDocument
 
   # GET /activities
   # GET /activities.json
@@ -16,6 +18,11 @@ class ActivitiesController < ApplicationController
     @task = Task.new
     @task_types = TaskType.all
     @task_states = Task.states
+    @document = Document.new
+    @documents = Document.where activity_id: params[:id]
+    @document_types = DocumentType.all
+
+    @client = Dropbox::API::Client.new(:token  => current_user.db_token, :secret => current_user.db_secret)
   end
 
   # GET /activities/new

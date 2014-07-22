@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140624091656) do
+ActiveRecord::Schema.define(version: 20140625232608) do
 
   create_table "activities", force: true do |t|
     t.string   "name"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20140624091656) do
     t.integer  "activity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "link_file_name"
   end
 
   add_index "documents", ["activity_id"], name: "index_documents_on_activity_id", using: :btree
@@ -147,6 +148,8 @@ ActiveRecord::Schema.define(version: 20140624091656) do
     t.string   "type"
     t.integer  "company_id"
     t.string   "avatar"
+    t.string   "db_token"
+    t.string   "db_secret"
   end
 
   add_index "users", ["company_id"], name: "index_users_on_Company_id", using: :btree
