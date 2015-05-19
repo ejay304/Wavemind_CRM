@@ -13,27 +13,32 @@
 
 ActiveRecord::Schema.define(version: 20140625232608) do
 
-  create_table "activities", force: true do |t|
-    t.string   "name"
+  create_table "activities", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.date     "beginDate"
     t.date     "endDate"
-    t.integer  "ref"
+    t.integer  "ref",        limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "project_id"
+    t.integer  "project_id", limit: 4
   end
 
   add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
 
-  create_table "activity_states", force: true do |t|
-    t.string   "name"
+  create_table "activity_states", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "assignments", force: true do |t|
-    t.integer  "task_id"
-    t.integer  "employee_id"
+  create_table "assignements", force: :cascade do |t|
+    t.integer "task_id",     limit: 4
+    t.integer "employee_id", limit: 4
+  end
+
+  create_table "assignments", force: :cascade do |t|
+    t.integer  "task_id",     limit: 4
+    t.integer  "employee_id", limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,119 +46,137 @@ ActiveRecord::Schema.define(version: 20140625232608) do
   add_index "assignments", ["employee_id"], name: "index_assignments_on_employee_id", using: :btree
   add_index "assignments", ["task_id"], name: "index_assignments_on_task_id", using: :btree
 
-  create_table "companies", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "website"
-    t.integer  "ref"
+  create_table "companies", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
+    t.string   "phone",      limit: 255
+    t.string   "fax",        limit: 255
+    t.string   "website",    limit: 255
+    t.integer  "ref",        limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar"
-    t.integer  "contact_id"
+    t.string   "avatar",     limit: 255
+    t.integer  "contact_id", limit: 4
   end
 
   add_index "companies", ["contact_id"], name: "index_companies_on_contact_id", using: :btree
 
-  create_table "document_types", force: true do |t|
-    t.text     "name"
-    t.string   "ref"
+  create_table "document_types", force: :cascade do |t|
+    t.text     "name",       limit: 65535
+    t.string   "ref",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "documents", force: true do |t|
-    t.string   "name"
-    t.string   "link"
+  create_table "documents", force: :cascade do |t|
+    t.string   "name",             limit: 255
+    t.string   "link",             limit: 255
     t.date     "date"
-    t.integer  "document_type_id"
-    t.integer  "activity_id"
+    t.integer  "document_type_id", limit: 4
+    t.integer  "activity_id",      limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "link_file_name"
+    t.string   "link_file_name",   limit: 255
   end
 
   add_index "documents", ["activity_id"], name: "index_documents_on_activity_id", using: :btree
   add_index "documents", ["document_type_id"], name: "index_documents_on_document_type_id", using: :btree
 
-  create_table "images", force: true do |t|
-    t.text     "description"
-    t.string   "link"
-    t.integer  "project_id"
+  create_table "images", force: :cascade do |t|
+    t.text     "description", limit: 65535
+    t.string   "link",        limit: 255
+    t.integer  "project_id",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "images", ["project_id"], name: "index_images_on_project_id", using: :btree
 
-  create_table "projects", force: true do |t|
-    t.string   "name"
+  create_table "projects", force: :cascade do |t|
+    t.string   "name",           limit: 255
     t.date     "date"
-    t.text     "description"
-    t.integer  "ref"
-    t.integer  "responsible_id"
-    t.integer  "type"
+    t.text     "description",    limit: 65535
+    t.integer  "ref",            limit: 4
+    t.integer  "responsible_id", limit: 4
+    t.integer  "type",           limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "contact_id"
+    t.integer  "contact_id",     limit: 4
   end
 
   add_index "projects", ["contact_id"], name: "index_projects_on_contact_id", using: :btree
   add_index "projects", ["responsible_id"], name: "index_projects_on_responsible_id", using: :btree
 
-  create_table "task_types", force: true do |t|
-    t.string   "name"
-    t.text     "description"
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "tasks", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "duration"
-    t.string   "state"
-    t.integer  "task_type_id"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "task_types", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.text     "description", limit: 65535
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "activity_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name",         limit: 255
+    t.text     "description",  limit: 65535
+    t.integer  "duration",     limit: 4
+    t.string   "state",        limit: 255
+    t.integer  "task_type_id", limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "activity_id",  limit: 4
   end
 
   add_index "tasks", ["activity_id"], name: "index_tasks_on_activity_id", using: :btree
   add_index "tasks", ["task_type_id"], name: "index_tasks_on_task_type_id", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "name"
-    t.string   "firstname"
-    t.string   "phone"
-    t.string   "fax"
-    t.string   "function"
-    t.integer  "zip"
-    t.string   "city"
-    t.string   "country"
-    t.string   "address"
+  create_table "users", force: :cascade do |t|
+    t.string   "name",                   limit: 255
+    t.string   "firstname",              limit: 255
+    t.string   "phone",                  limit: 255
+    t.string   "fax",                    limit: 255
+    t.string   "function",               limit: 255
+    t.integer  "zip",                    limit: 4
+    t.string   "city",                   limit: 255
+    t.string   "country",                limit: 255
+    t.string   "address",                limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",          limit: 4,   default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "type"
-    t.integer  "company_id"
-    t.string   "avatar"
-    t.string   "db_token"
-    t.string   "db_secret"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "type",                   limit: 255
+    t.integer  "company_id",             limit: 4
+    t.string   "avatar",                 limit: 255
+    t.string   "db_token",               limit: 255
+    t.string   "db_secret",              limit: 255
   end
 
-  add_index "users", ["company_id"], name: "index_users_on_Company_id", using: :btree
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id", limit: 4
+    t.integer "role_id", limit: 4
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
 end

@@ -27,8 +27,9 @@ test:
 production:
   adapter: mysql2
   encoding: utf8
-  database: wavemind_crm
+  database: c0_crm_dev
   pool: 5
   timeout: 5000
-  username: root
-  password: root
+  username: c0_wavemind
+  password: laJoconde14
+  socket: /var/run/mysqld/mysqld.sock

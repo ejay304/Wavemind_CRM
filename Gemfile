@@ -13,7 +13,7 @@ gem "cancan"
 gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails'
 
 gem 'mysql2'
 
